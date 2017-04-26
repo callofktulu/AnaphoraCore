@@ -1,0 +1,10 @@
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Debug\netcoreapp1.1\AnaphoraCore.deps.json
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Debug\netcoreapp1.1\AnaphoraCore.runtimeconfig.json
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Debug\netcoreapp1.1\AnaphoraCore.runtimeconfig.dev.json
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Debug\netcoreapp1.1\AnaphoraCore.dll
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Debug\netcoreapp1.1\AnaphoraCore.pdb
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Debug\netcoreapp1.1\AnaphoraCore.csprojResolveAssemblyReference.cache
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Debug\netcoreapp1.1\AnaphoraCore.AssemblyInfo.cs
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Debug\netcoreapp1.1\AnaphoraCore.dll
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Debug\netcoreapp1.1\AnaphoraCore.pdb
+c:\users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
