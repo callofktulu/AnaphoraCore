@@ -1,0 +1,10 @@
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Release\netcoreapp1.1\AnaphoraCore.deps.json
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Release\netcoreapp1.1\AnaphoraCore.runtimeconfig.json
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Release\netcoreapp1.1\AnaphoraCore.runtimeconfig.dev.json
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Release\netcoreapp1.1\AnaphoraCore.dll
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\bin\Release\netcoreapp1.1\AnaphoraCore.pdb
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Release\netcoreapp1.1\AnaphoraCore.csprojResolveAssemblyReference.cache
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Release\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Release\netcoreapp1.1\AnaphoraCore.AssemblyInfo.cs
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Release\netcoreapp1.1\AnaphoraCore.dll
+C:\Users\tugru\documents\visual studio 2017\Projects\AnaphoraCore\AnaphoraCore\obj\Release\netcoreapp1.1\AnaphoraCore.pdb

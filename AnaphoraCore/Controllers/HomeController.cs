@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace AnaphoraCore.Controllers
 {
@@ -29,6 +25,12 @@ namespace AnaphoraCore.Controllers
 
         public IActionResult Error()
         {
+            return View();
+        }
+
+        public IActionResult ResolveAnaphora(string sentence)
+        {
+
             return View();
         }
     }
