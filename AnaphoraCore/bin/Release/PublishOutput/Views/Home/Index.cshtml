@@ -1,60 +1,123 @@
 ﻿@{
-    ViewData["Title"] = "Anaphora Resolution Project by Tuğrul Ertürk";
+    ViewData["Title"] = "AnaphoraCore by Tuğrul Ertürk";
+
 }
+@using AnaphoraCore.Models
+@model Anaphora
 
 <div class="row">
     <div class="col-md-6">
-        
-       
-        <form id="AnaphoraForm">
-            <div class="form-group top-5">
-                <textarea id="sentence" name="sentence" class="form-control"></textarea>
-                <input type="submit" value="Analyze" class="form-control" id="submit" />
-            </div>
-        </form>
-             
+        <div>
+            @using (Html.BeginForm("Anaphora", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadForm" }))
+            {
+                <div class="form-group top-5">
+                    <textarea id="sentence" name="sentence" class="form-control" placeholder="@ViewBag.Sentence"></textarea>
+                    <input value="Analyze the sentence" class="form-control" id="submit" type="submit" />
+                </div>
+            }
+        </div>
+        <div>
+            @if (Model != null)
+            {
+                if (Model.NounPhrases.Count > 0 && Model.PersonalPronouns.Count > 0)
+                {
+                    if (Model.PersonalPronouns.Count == 1) // There is only one NounPhrase, in this case it MUST BE refering to the following pronouns.
+                    {
+                        switch (Model.PersonalPronouns[0])
+                        {
+                            case "she":
+                            case "She":
+                            case "SHE":
+                                <label>I'm pretty sure that the personal pronoun "@Model.PersonalPronouns[0]" refers to Miss @Model.NounPhrases[Model.NounPhrases.Count - 1].</label>
+                                break;
+                            case "he":
+                            case "He":
+                            case "HE":
+                                <label>I'm pretty sure that the personal pronoun "@Model.PersonalPronouns[0]" refers to Mr. @Model.NounPhrases[Model.NounPhrases.Count - 1].</label>
+                                break;
+                            case "I":
+                                <label>I think the personal pronoun "I", refers to the speaker of the sentence.</label>
+                                break;
+                            default:
+                                <label>I'm pretty sure that the pronoun "@Model.PersonalPronouns[0]" refers to @Model.NounPhrases[Model.NounPhrases.Count - 1].</label>
+                                break;
+                        }
+                    }
+                    else if (Model.PersonalPronouns.Count > 1) // If there are more than one NounPhrases, it's highly likely that the pronoun is refering to the one that's closer to it.
+                    {
+                        <label>Hmm... This sentence is very difficult for me to process, because it has more than one pronoun but I will make one highly probable guess using my machine learning algorithm. I think the first personal pronoun "@Model.PersonalPronouns[0]" refers to Mr. @Model.NounPhrases[Model.NounPhrases.Count - 1].</label>
+                    }
+                }
+                else
+                {
+                    if (ViewBag.Sentence != null)
+                    {
+                        if (Model.PersonalPronouns != null && Model.PossessivePronouns != null)
+                        {
+                            if (Model.PersonalPronouns.Count == 0 || Model.PossessivePronouns.Count == 0)
+                            {
+                                <label>I'm pretty sure that this sentence is pretty clear and refers to no one.</label>
+                            }
+                            else
+                            {
+                                <label>I'm pretty sure that this sentence is pretty clear.</label>
+                            }
+                        }
+                        <label>I have detected a pronoun but I couldn't find what or who it refers to. Maybe you should send the sentence to Tuğrul so that he can check and improve me?</label>
+                    }
+                    else
+                    {
+                        <label>So you're trying to resolve a coreference within a sentence WITHOUT a sentence huh? Genius.</label>
+                    }
+                }
+            }
+        </div>
     </div>
     <div class="col-md-6">
-        <h2>Anaphora Resolution by Tuğrul Ertürk</h2>
-        <h3>How does it work?</h3>
+        <h2>AnaphoraCore by Tuğrul Ertürk</h2>
+        
+        <h3>What is AnaphoraCore?</h3>
         <ul>
-            <li>Explanations will be listed here.</li>
+            <li>AnaphoraCore is an online <a href="https://en.wikipedia.org/wiki/Anaphora_(linguistics)">anahpora/coreference</a> resolution solution.</li>
+            <li>It requires no tagging, it can analyze the sentences on its own.</li>
+            <li>It uses machine learning technique support vector machine, Microsoft Linguistics API, asp.net Core MVC technologies.</li>
+            <li>AnaphoraCore is an open source program licenced under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU Public Licence v4</a>. It's source code can be accessed through <a href="https://github.com/callofktulu/AnaphoraCore">here</a>.</li>
         </ul>
+        <h3>Bibliography and digital sources for this work</h3>
+            <p>To tackle the problem I have studied several publications. Note that I haven't used any of the algorithms that are presented in these articles. This is one of the reasons why I am making this project open source:</p>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        <h3>Version notes for v0.1</h3>
+        <ul>
+            <li>The project is pushed to GitHub.</li>
+            <li>The algorithm for detecting and parsing clauses are in effect.</li>
+            <li>Algorithm explanation has been added to the source code functions.</li>
+        </ul>
+        <h3>Planned Updates</h3>
+        <ul>
+            <li>I will apply to Microsoft Cognitive Services showcase.</li>
+            <li>Machine learning algorithm will be further developed.</li>
+            <li>The sentences will be recorded and human revision will be asked after each analysis.</li>
+            <li>The user login will be implemented for statistics & machine learning algorithm.</li>
+        </ul>
+        <h3>Known Bugs</h3>
+        <ul>
+            <li>The system performs poorly (or it doesn't work at all) when the pronoun refers to a non-person noun. This will be fixed.</li>
+        </ul>
+        <h3>Special Thanks</h3>
+        <p>Special thanks to Claire Peeters and Mariana Vignioli for helping me test the application and special thanks to <a href="http://wdb.ugr.es/~cristoballozano/">Dr. Cristóbal Lozano</a> for laying the foundations of this work. </p>
+        <h3>Contact and Donations</h3>
+        <p>AnaphoraCore is a free-to-use and open source application. I have some further plans to develop it of which you can check at Planned Updates section. However development takes time and server management which costs money, and I am a graduate student with low income. Would you like to help me develop it further? Donations will surely motivate me in developing AnaphoraCore and other linguistic tools!</p>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="VMF7ZTXTL892N" />
+            <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate" />
+            <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+        </form>
     </div>
 
 </div>
-@section Scripts{
-
-
-    <script>
-
-        $(function() {
-            $("#AnaphoraForm").submit(function() {
-                var params = {
-                    // Request parameters
-                
-                };
-
-                $.ajax({
-                        url: "https://westus.api.cognitive.microsoft.com/linguistics/v1.0/analyze",
-                        beforeSend: function(xhrObj) {
-                            // Request headers
-                            xhrObj.setRequestHeader("Content-Type", "application/json");
-                            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "5ecd45b2caaf4372b6704962197a5d29");
-                        },
-                        type: "POST",
-                        // Request body
-                        data: '{ "language":"en", "analyzerIds":["4fa79af1-f22c-408d-98bb-b7d7aeef7f04", "22a6b758-420f-4745-8a3c-46835a67c0d2"], "text":"Hi, Tom! How are you today?"}'
-                    })
-                    .done(function(data) {
-                        alert(JSON.stringify(data));
-                    })
-                    .fail(function(data) {
-                        alert(JSON.stringify(data));
-                    });
-            });
-
-        });
-    </script>
-
-}

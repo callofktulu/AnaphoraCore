@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="AnaphoraCore" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\tugru\\Documents\\Visual\ Studio\ 2017\\Projects\\AnaphoraCore\\AnaphoraCore\\obj\\Release\\netcoreapp1\.1\\PubTmp\\Out\\$" />
+  </parameter>
+</parameters>
