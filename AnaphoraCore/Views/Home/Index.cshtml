@@ -2,7 +2,6 @@
     ViewData["Title"] = "AnaphoraCore by Tuğrul Ertürk";
 
 }
-@using AnaphoraCore.Models
 @model Anaphora
 
 <div class="row">
@@ -19,33 +18,52 @@
         <div class="row">
             @if (Model != null)
             {
-                if (Model.NounPhrases.Count > 0 && Model.PersonalPronouns.Count > 0)
+                if (Model.ProperNouns.Count > 0 && Model.PersonalPronouns.Count > 0) // If there are ProperNouns and Personal Pronouns
                 {
-                    if (Model.PersonalPronouns.Count == 1) // There is only one NounPhrase, in this case it MUST BE refering to the following pronouns.
+                    if (Model.PersonalPronouns.Count == 1) // There is only one PersonalPronoun, in this case it MUST BE refering to the ProperNoun.
                     {
                         switch (Model.PersonalPronouns[0])
                         {
                             case "she":
                             case "She":
                             case "SHE":
-                                <label>I'm pretty sure that the personal pronoun "@Model.PersonalPronouns[0]" refers to Miss @Model.NounPhrases[Model.NounPhrases.Count - 1].</label>
+                                <label>I'm pretty sure that the personal pronoun "@Model.PersonalPronouns[0]" refers to Miss @Model.ProperNouns[Model.ProperNouns.Count - 1].</label>
                                 break;
                             case "he":
                             case "He":
                             case "HE":
-                                <label>I'm pretty sure that the personal pronoun "@Model.PersonalPronouns[0]" refers to Mr. @Model.NounPhrases[Model.NounPhrases.Count - 1].</label>
+                                <label>I'm pretty sure that the personal pronoun "@Model.PersonalPronouns[0]" refers to Mr. @Model.ProperNouns[Model.ProperNouns.Count - 1].</label>
                                 break;
                             case "I":
                                 <label>I think the personal pronoun "I", refers to the speaker of the sentence.</label>
                                 break;
                             default:
-                                <label>I'm pretty sure that the pronoun "@Model.PersonalPronouns[0]" refers to @Model.NounPhrases[Model.NounPhrases.Count - 1].</label>
+                                <label>I'm pretty sure that the pronoun "@Model.PersonalPronouns[0]" refers to @Model.ProperNouns[Model.ProperNouns.Count - 1].</label>
                                 break;
                         }
                     }
-                    else if (Model.PersonalPronouns.Count > 1) // If there are more than one NounPhrases, it's highly likely that the pronoun is refering to the one that's closer to it.
+                    else if (Model.PersonalPronouns.Count > 1) // If there are more than one PersonalPronouns, it's highly likely that the pronoun is refering to the one that's closer to it.
                     {
-                        <label>Hmm... This sentence is very difficult for me to process, because it has more than one pronoun but I will make one highly probable guess using my machine learning algorithm. I think the first pronoun "@Model.PersonalPronouns[0]" refers to Mr. @Model.NounPhrases[Model.NounPhrases.Count - 1].</label>
+                        <label>Hmm... This sentence is very difficult for me to process, because it has more than one pronoun but I will make one highly probable guess using my machine learning algorithm. I think the first pronoun "@Model.PersonalPronouns[0]" refers to @Model.ProperNouns[Model.ProperNouns.Count - 1].</label>
+                    }
+                }
+                else if ((Model.PluralCommonNouns.Count > 0 || Model.SingularCommonNouns.Count > 0) && (Model.PersonalPronouns.Count > 0 || Model.PossessivePronouns.Count > 0)) // then it might be refering to common nouns.
+                {
+                    if (Model.PluralCommonNouns.Count > 0 && Model.PersonalPronouns.Count > 0) // referal of they/you to plural common nouns. Needs a finer detection.
+                    {
+                        <label>Hmm... This sentence is very difficult for me to process, because I couldn't detect a proper noun but I will make one highly probable guess using my machine learning algorithm. I think the first pronoun "@Model.PersonalPronouns[0]" refers to "@Model.PluralCommonNouns[Model.PluralCommonNouns.Count - 1]"  </label>
+                    }
+                    else if (Model.PluralCommonNouns.Count > 0 && Model.PossessivePronouns.Count > 0)
+                    {
+                        <label>Hmm... This sentence is very difficult for me to process, because I couldn't detect a proper noun but I will make one highly probable guess using my machine learning algorithm. I think the first pronoun "@Model.PossessivePronouns[0]" refers to "@Model.PluralCommonNouns[Model.PluralCommonNouns.Count - 1]"  </label>
+                    }
+                    else if (Model.SingularCommonNouns.Count > 0 && Model.PersonalPronouns.Count > 0)
+                    {
+                        <label>Hmm... This sentence is very difficult for me to process, because I couldn't detect a proper noun but I will make one highly probable guess using my machine learning algorithm. I think the first pronoun "@Model.PersonalPronouns[0]" refers to "@Model.SingularCommonNouns[Model.SingularCommonNouns.Count - 1]"  </label>
+                    }
+                    else if (Model.SingularCommonNouns.Count > 0 && Model.PossessivePronouns.Count > 0)
+                    {
+                        <label>Hmm... This sentence is very difficult for me to process, because I couldn't detect a proper noun but I will make one highly probable guess using my machine learning algorithm. I think the first pronoun "@Model.PossessivePronouns[0]" refers to "@Model.SingularCommonNouns[Model.SingularCommonNouns.Count - 1]"  </label>
                     }
                 }
                 else
@@ -66,7 +84,7 @@
                             {
                                 <label>I have detected a possessive pronoun but I couldn't find what or who it refers to. Maybe you should send the sentence to Tuğrul so that he can check and improve me?</label>
                             }
-                          
+
                         }
 
                     }
@@ -75,7 +93,9 @@
                         <label>So you're trying to resolve a coreference within a sentence WITHOUT a sentence huh? Genius.</label>
                     }
                 }
+                <i></i>
             }
+
         </div>
     </div>
 
@@ -91,17 +111,21 @@
         </ul>
         <h3>Bibliography and digital sources for this work</h3>
             <p>To tackle the problem I have studied several publications. Note that I haven't used any of the algorithms that are presented in these articles. This is one of the reasons why I am making this project open source:</p>
-            <ul>
-                <li>Anaphora resolution in unrestricted texts with partial parsing
-In Proceedings of the 36th Annual Meeting of the Association for Computational Linguistics and 17th International Conference on Computational Linguistics (COLING-ACL'98), 385-391 Montreal (Canada).
-Ferrández et al.1999
-Ferrández, A., Palomar, M., Moreno, L. 1999.</li>
-                <li>Anaphora resolution: a multi-strategy approach
-In Proceedings of 12th International Conference on Computational Linguistics (COLING'88), 96-101 Budapest (Hungary).
-Carletta et al.1997
-Carletta, J., et al. 1997.</li>
-                <li>Easy-first Coreference Resolution - Veselin Stoyanov, Jason Eisner (Unpublished, can be accessed <a href="http://cs.jhu.edu/~jason/papers/stoyanov+eisner.coling12.pdf">here</a>)</li>
-            </ul>
+        <ul>
+            <li>Anaphora resolution in unrestricted texts with partial parsing
+                In Proceedings of the 36th Annual Meeting of the Association for Computational Linguistics and 17th International Conference on Computational Linguistics (COLING-ACL'98), 385-391 Montreal (Canada).
+                Ferrández et al.1999
+                Ferrández, A., Palomar, M., Moreno, L. 1999.</li>
+            <li>Anaphora resolution: a multi-strategy approach
+                In Proceedings of 12th International Conference on Computational Linguistics (COLING'88), 96-101 Budapest (Hungary).
+                Carletta et al.1997
+                Carletta, J., et al. 1997.</li>
+            <li>Easy-first Coreference Resolution - Veselin Stoyanov, Jason Eisner (Unpublished, can be accessed <a href="http://cs.jhu.edu/~jason/papers/stoyanov+eisner.coling12.pdf">here</a>)</li>
+        </ul>
+        <h3>Version notes for v0.2</h3>
+        <ul>
+            <li>The algorithm is enhanced. Now it can make the distinction of common nouns and proper nouns to make a better guess.</li>
+        </ul>
         <h3>Version notes for v0.1</h3>
         <ul>
             <li>The project is pushed to GitHub.</li>
@@ -122,9 +146,9 @@ Carletta, J., et al. 1997.</li>
             <li>The system performs poorly (or it doesn't work at all) when the pronoun refers to a non-person noun. This will be fixed.</li>
         </ul>
         <h3>Special Thanks</h3>
-        <p>Special thanks to Claire Peeters and Mariana Vignioli for helping me test the application and special thanks to <a href="http://wdb.ugr.es/~cristoballozano/">Dr. Cristóbal Lozano</a> for laying the foundations of this work. </p>
+        <p>Special thanks to Claire Peeters and Mariana Vignoli for helping me test the application and special thanks to <a href="http://wdb.ugr.es/~cristoballozano/">Dr. Cristóbal Lozano</a> for laying the foundations of this work. </p>
         <h3>Contact and Donations</h3>
-        <p>AnaphoraCore is a free-to-use and open source application. I have some further plans to develop it of which you can check at Planned Updates section. However development takes time and server management which costs money, and I am a graduate student with low income. Would you like to help me develop it further? Donations will surely motivate me in developing AnaphoraCore and other linguistic tools!</p>
+        <p>AnaphoraCore is a free-to-use and open source application. I have some further plans to develop it of which you can check at Planned Updates section. However development takes time and server management which costs money, and I am a graduate student with low income. Would you like to help me develop it further? Donations will surely motivate me in developing AnaphoraCore and other linguistic tools! You can reach me from my personal <a href="mailto:tugrulerturk@windowslive.com?Subject=AnaphoraCore" target="_top">email</a> or my university <a href="mailto:tugrulerturk@correo.ugr.es?Subject=AnaphoraCore" target="_top">email</a> for feedback.</p>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_s-xclick" />
             <input type="hidden" name="hosted_button_id" value="VMF7ZTXTL892N" />

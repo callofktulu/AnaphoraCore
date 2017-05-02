@@ -41,6 +41,7 @@ namespace AnaphoraCore.Controllers
         {
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public async Task<ActionResult> Anaphora(string sentence)
         {
@@ -53,11 +54,25 @@ namespace AnaphoraCore.Controllers
                 // Anaphora Resolution starts here
                 // First we find if there is a Noun Phrase, and if there is, add each one to NP list.
 
-                anaphora.NounPhrases = new List<string>();
+                anaphora.ProperNouns = new List<string>();
                 for (var i = 0; i < analyze.AllIndexesOf("(NNP").Count; i++)
                 {
                     var remainingSentence = analyze.Substring(analyze.AllIndexesOf("(NNP")[i] + 4);
-                    anaphora.NounPhrases.Add(remainingSentence.Substring(0, remainingSentence.IndexOf(")", StringComparison.Ordinal)));
+                    anaphora.ProperNouns.Add(remainingSentence.Substring(0, remainingSentence.IndexOf(")", StringComparison.Ordinal)));
+                }
+
+                anaphora.PluralCommonNouns = new List<string>();
+                for (var i = 0; i < analyze.AllIndexesOf("(NNS").Count; i++)
+                {
+                    var remainingSentence = analyze.Substring(analyze.AllIndexesOf("(NNS")[i] + 4);
+                    anaphora.PluralCommonNouns.Add(remainingSentence.Substring(0, remainingSentence.IndexOf(")", StringComparison.Ordinal)));
+                }
+
+                anaphora.SingularCommonNouns = new List<string>();
+                for (var i = 0; i < analyze.AllIndexesOf("(NN ").Count; i++)
+                {
+                    var remainingSentence = analyze.Substring(analyze.AllIndexesOf("(NN ")[i] + 4);
+                    anaphora.SingularCommonNouns.Add(remainingSentence.Substring(0, remainingSentence.IndexOf(")", StringComparison.Ordinal)));
                 }
 
                 anaphora.PersonalPronouns = new List<string>();
@@ -74,8 +89,8 @@ namespace AnaphoraCore.Controllers
                     anaphora.PersonalPronouns.Add(remainingSentence.Substring(0, remainingSentence.IndexOf(")", StringComparison.Ordinal)));
                 }
 
-                ViewBag.Sentence = sentence;
-                ViewBag.Analyze = analyze;
+                anaphora.Sentence = ViewBag.Sentence = sentence;
+                anaphora.Analysis = ViewBag.Analyze = analyze;
             }
             
 

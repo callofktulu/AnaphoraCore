@@ -11003,10 +11003,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tugru\\Documents\\Visual Studio 2017\\Projects\\AnaphoraCore\\AnaphoraCore\\AnaphoraCore.csproj",
+      "projectUniqueName": "C:\\Users\\tugru\\documents\\visual studio 2017\\Projects\\AnaphoraCore\\AnaphoraCore\\AnaphoraCore.csproj",
       "projectName": "AnaphoraCore",
-      "projectPath": "C:\\Users\\tugru\\Documents\\Visual Studio 2017\\Projects\\AnaphoraCore\\AnaphoraCore\\AnaphoraCore.csproj",
-      "outputPath": "C:\\Users\\tugru\\Documents\\Visual Studio 2017\\Projects\\AnaphoraCore\\AnaphoraCore\\obj\\",
+      "projectPath": "C:\\Users\\tugru\\documents\\visual studio 2017\\Projects\\AnaphoraCore\\AnaphoraCore\\AnaphoraCore.csproj",
+      "outputPath": "C:\\Users\\tugru\\documents\\visual studio 2017\\Projects\\AnaphoraCore\\AnaphoraCore\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
