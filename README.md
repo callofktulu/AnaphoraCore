@@ -1,5 +1,5 @@
 # AnaphoraCore
-An open source web based anaphora resolution tool build in asp.net core.
+An open source web based anaphora resolution tool built in asp.net core.
 
 -What is AnaphoraCore?
 AnaphoraCore is an online anaphora/coreference resolution solution.
